@@ -1,0 +1,56 @@
+<div class="bg-gray-50 min-h-screen py-8">
+  <div class="container mx-auto px-4">
+    <app-cart-header [count]="cartItems().length" />
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div class="lg:col-span-2 space-y-4">
+        @for (item of cartItems(); track $index) {
+          <app-cart-item [item]="item" />
+        } @empty {
+          <div class="max-w-md text-center mx-auto py-12">
+            <div
+              class="w-32 h-32 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-8"
+            >
+              <i class="fa-solid fa-box-open text-5xl text-gray-300"></i>
+            </div>
+
+            <h2 class="text-2xl font-bold mb-3">Your cart is empty</h2>
+
+            <p class="text-gray-500 mb-8">Start exploring our products</p>
+
+            <a routerLink="/" class="bg-emerald-600 text-white px-8 py-3 rounded-xl">
+              Start Shopping
+            </a>
+          </div>
+        }
+      </div>
+
+      <div class="lg:col-span-1">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 sticky top-4">
+          <h2 class="font-bold text-lg mb-4">Order Summary</h2>
+
+          <div class="space-y-3 text-gray-600">
+            <div class="flex justify-between">
+              <span>Subtotal</span>
+              <span>{{ subtotal | currency: 'EGP' }} </span>
+            </div>
+
+            <div class="flex justify-between">
+              <span>Shipping</span>
+              <span class="text-emerald-600"> Calculated at checkout </span>
+            </div>
+          </div>
+
+          <div class="my-4 border-t border-gray"></div>
+
+          <div class="flex justify-between font-bold text-lg">
+            <span>Total</span>
+            <span class="text-emerald-600">
+              {{ subtotal | currency: 'EGP' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

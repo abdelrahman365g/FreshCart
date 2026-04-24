@@ -1,0 +1,31 @@
+<div class="min-h-screen bg-gray-50/50">
+  <app-wishlist-header [itemsCount]="itemsCount()" />
+
+  <div class="container mx-auto px-4 py-8">
+    <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+      <div
+        class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-100 text-sm font-medium text-gray-500"
+      >
+        <div class="col-span-6">Product</div>
+        <div class="col-span-2 text-center">Price</div>
+        <div class="col-span-2 text-center">Status</div>
+        <div class="col-span-2 text-center">Actions</div>
+      </div>
+
+      <div class="divide-y divide-gray-100">
+        @for (item of wishlist(); track $index) {
+          <app-wishlist-item [product]="item" />
+        }
+      </div>
+    </div>
+    <div class="mt-8 flex items-center justify-between">
+      <a
+        routerLink="/products"
+        class="text-gray-500 hover:text-emerald-600 text-sm font-medium transition-colors duration-200 inline-flex items-center gap-2"
+      >
+        <i class="fa-solid fa-arrow-left text-xs"></i>
+        <span>Continue Shopping</span>
+      </a>
+    </div>
+  </div>
+</div>

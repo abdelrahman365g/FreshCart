@@ -1,0 +1,270 @@
+<section id="product-details-tabs" class="py-8">
+  <div class="container mx-auto px-4">
+    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+      <div class="border-b border-gray-200">
+        <div class="flex overflow-x-auto scrollbar-hide">
+          <button
+            (click)="setTab('details')"
+            class="flex items-center gap-2 px-6 py-4 font-medium whitespace-nowrap transition-all duration-200"
+            [class.text-emerald-600]="activeTab() === 'details'"
+            [class.border-b-2]="activeTab() === 'details'"
+            [class.border-emerald-600]="activeTab() === 'details'"
+            [class.bg-emerald-50]="activeTab() === 'details'"
+            [class.text-gray-600]="activeTab() !== 'details'"
+          >
+            <i class="fa-solid fa-box text-sm"></i>
+            Product Details
+          </button>
+
+          <button
+            (click)="setTab('reviews')"
+            class="flex items-center gap-2 px-6 py-4 font-medium whitespace-nowrap transition-all duration-200"
+            [class.text-emerald-600]="activeTab() === 'reviews'"
+            [class.border-b-2]="activeTab() === 'reviews'"
+            [class.border-emerald-600]="activeTab() === 'reviews'"
+            [class.bg-emerald-50]="activeTab() === 'reviews'"
+            [class.text-gray-600]="activeTab() !== 'reviews'"
+          >
+            <i class="fa-solid fa-star text-sm"></i>
+            Reviews ({{ product()?.reviews?.length || 0 }})
+          </button>
+
+          <button
+            (click)="setTab('shipping')"
+            class="flex items-center gap-2 px-6 py-4 font-medium whitespace-nowrap transition-all duration-200"
+            [class.text-emerald-600]="activeTab() === 'shipping'"
+            [class.border-b-2]="activeTab() === 'shipping'"
+            [class.border-emerald-600]="activeTab() === 'shipping'"
+            [class.bg-emerald-50]="activeTab() === 'shipping'"
+            [class.text-gray-600]="activeTab() !== 'shipping'"
+          >
+            <i class="fa-solid fa-truck text-sm"></i>
+            Shipping & Returns
+          </button>
+        </div>
+      </div>
+      @if (activeTab() === 'details') {
+        <div id="product-details" class="p-6">
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900 mb-3">About this Product</h3>
+              <p class="text-gray-600 leading-relaxed">
+                {{ product()?.description }}
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="bg-gray-50 rounded-lg p-4">
+                <h4 class="font-medium text-gray-900 mb-3">Product Information</h4>
+                <ul class="space-y-2">
+                  <li class="flex justify-between text-sm">
+                    <span class="text-gray-500">Category</span>
+                    <span class="text-gray-900 font-medium">{{ product()?.category?.name }}</span>
+                  </li>
+                  <li class="flex justify-between text-sm">
+                    <span class="text-gray-500">Subcategory</span>
+                    <span class="text-gray-900 font-medium">{{
+                      product()?.subcategory?.[0]?.name
+                    }}</span>
+                  </li>
+                  <li class="flex justify-between text-sm">
+                    <span class="text-gray-500">Brand</span>
+                    <span class="text-gray-900 font-medium">{{ product()?.brand?.name }}</span>
+                  </li>
+                  <li class="flex justify-between text-sm">
+                    <span class="text-gray-500">Items Sold</span>
+                    <span class="text-gray-900 font-medium">{{ product()?.sold || 0 }}+ sold</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="bg-gray-50 rounded-lg p-4">
+                <h4 class="font-medium text-gray-900 mb-3">Key Features</h4>
+                <ul class="space-y-2">
+                  <li class="flex items-center text-sm text-gray-600">
+                    <i class="fa-solid fa-check text-emerald-600 mr-2 w-4"></i>
+                    Premium Quality Product
+                  </li>
+                  <li class="flex items-center text-sm text-gray-600">
+                    <i class="fa-solid fa-check text-emerald-600 mr-2 w-4"></i>
+                    100% Authentic Guarantee
+                  </li>
+                  <li class="flex items-center text-sm text-gray-600">
+                    <i class="fa-solid fa-check text-emerald-600 mr-2 w-4"></i>
+                    Fast & Secure Packaging
+                  </li>
+                  <li class="flex items-center text-sm text-gray-600">
+                    <i class="fa-solid fa-check text-emerald-600 mr-2 w-4"></i>
+                    Quality Tested
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      } @else if (activeTab() === 'reviews') {
+        <div id="reviews" class="p-6">
+          <div class="space-y-6">
+            <div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
+              <div class="text-center">
+                <div class="text-5xl font-bold text-gray-900 mb-2">4.3</div>
+                <div class="text-yellow-400">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </div>
+                <p class="text-sm text-gray-500 mt-2">Based on 60 reviews</p>
+              </div>
+
+              <div class="flex-1 w-full">
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="text-sm text-gray-600 w-8">5 star</span>
+                  <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div
+                      class="h-full bg-yellow-400 rounded-full transition-all duration-300"
+                      style="width: 25%"
+                    ></div>
+                  </div>
+                  <span class="text-sm text-gray-500 w-10">25%</span>
+                </div>
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="text-sm text-gray-600 w-8">4 star</span>
+                  <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div
+                      class="h-full bg-yellow-400 rounded-full transition-all duration-300"
+                      style="width: 60%"
+                    ></div>
+                  </div>
+                  <span class="text-sm text-gray-500 w-10">60%</span>
+                </div>
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="text-sm text-gray-600 w-8">3 star</span>
+                  <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div
+                      class="h-full bg-yellow-400 rounded-full transition-all duration-300"
+                      style="width: 25%"
+                    ></div>
+                  </div>
+                  <span class="text-sm text-gray-500 w-10">25%</span>
+                </div>
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="text-sm text-gray-600 w-8">2 star</span>
+                  <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div
+                      class="h-full bg-yellow-400 rounded-full transition-all duration-300"
+                      style="width: 5%"
+                    ></div>
+                  </div>
+                  <span class="text-sm text-gray-500 w-10">5%</span>
+                </div>
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="text-sm text-gray-600 w-8">1 star</span>
+                  <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div
+                      class="h-full bg-yellow-400 rounded-full transition-all duration-300"
+                      style="width: 5%"
+                    ></div>
+                  </div>
+                  <span class="text-sm text-gray-500 w-10">5%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="border-t border-gray-200 pt-6">
+              <div class="text-center py-8">
+                <i class="fa-regular fa-star text-4xl text-gray-300 mb-3"></i>
+                <p class="text-gray-500">Customer reviews will be displayed here.</p>
+                <button
+                  class="mt-4 text-emerald-600 hover:text-emerald-700 font-medium transition-colors duration-200"
+                >
+                  Write a Review
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      } @else if (activeTab() === 'shipping') {
+        <div id="shipping" class="p-6">
+          <div class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="bg-linear-to-br from-emerald-50 to-emerald-100 rounded-lg p-6">
+                <div class="flex items-center gap-3 mb-4">
+                  <div
+                    class="h-12 w-12 bg-emerald-600 text-white rounded-full flex items-center justify-center"
+                  >
+                    <i class="fa-solid fa-truck text-xl"></i>
+                  </div>
+                  <h4 class="font-semibold text-gray-900">Shipping Information</h4>
+                </div>
+                <ul class="space-y-3">
+                  <li class="flex items-start gap-2 text-sm text-gray-700">
+                    <i class="fa-solid fa-check text-emerald-600 mt-0.5 text-xs"></i>
+                    <span>Free shipping on orders over $50</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-gray-700">
+                    <i class="fa-solid fa-check text-emerald-600 mt-0.5 text-xs"></i>
+                    <span>Standard delivery: 3-5 business days</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-gray-700">
+                    <i class="fa-solid fa-check text-emerald-600 mt-0.5 text-xs"></i>
+                    <span>Express delivery available (1-2 business days)</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-gray-700">
+                    <i class="fa-solid fa-check text-emerald-600 mt-0.5 text-xs"></i>
+                    <span>Track your order in real-time</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="bg-linear-to-br from-emerald-50 to-emerald-100 rounded-lg p-6">
+                <div class="flex items-center gap-3 mb-4">
+                  <div
+                    class="h-12 w-12 bg-emerald-600 text-white rounded-full flex items-center justify-center"
+                  >
+                    <i class="fa-solid fa-arrow-rotate-left text-xl"></i>
+                  </div>
+                  <h4 class="font-semibold text-gray-900">Returns & Refunds</h4>
+                </div>
+                <ul class="space-y-3">
+                  <li class="flex items-start gap-2 text-sm text-gray-700">
+                    <i class="fa-solid fa-check text-emerald-600 mt-0.5 text-xs"></i>
+                    <span>30-day hassle-free returns</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-gray-700">
+                    <i class="fa-solid fa-check text-emerald-600 mt-0.5 text-xs"></i>
+                    <span>Full refund or exchange available</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-gray-700">
+                    <i class="fa-solid fa-check text-emerald-600 mt-0.5 text-xs"></i>
+                    <span>Free return shipping on defective items</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-gray-700">
+                    <i class="fa-solid fa-check text-emerald-600 mt-0.5 text-xs"></i>
+                    <span>Easy online return process</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-6 flex items-center gap-4">
+              <div
+                class="h-14 w-14 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center shrink-0"
+              >
+                <i class="fa-solid fa-shield-halved text-2xl"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-900 mb-1">Buyer Protection Guarantee</h4>
+                <p class="text-sm text-gray-600">
+                  Get a full refund if your order doesn't arrive or isn't as described. We ensure
+                  your shopping experience is safe and secure.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

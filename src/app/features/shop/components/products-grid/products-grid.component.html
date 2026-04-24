@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+    @if (!isLoading()) {
+      @for (product of allProducts(); track $index) {
+        <app-product-card [product]="product"></app-product-card>
+      } @empty {
+        <div class="col-span-full text-center text-gray-500">No products available.</div>
+      }
+    } @else {
+      <div class="col-span-full text-center text-gray-500">
+        <div class="col-span-full text-center text-primary-600">
+          <i class="fas fa-spinner fa-spin text-3xl"></i>
+          <p class="text-xl">Loading products...</p>
+        </div>
+      </div>
+    }
+  </div>
+</div>

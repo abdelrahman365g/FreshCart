@@ -1,0 +1,84 @@
+<div
+  class="product-card h-full bg-white border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+>
+  <div class="relative group">
+    <img
+      class="w-full h-60 object-contain bg-white group-hover:scale-105 transition-transform duration-300"
+      [alt]="product()?.title"
+      [src]="imageCover()"
+    />
+    @if (discountPercentage() > 0) {
+      <div class="absolute top-3 left-3">
+        <span class="bg-red-500 text-white text-xs px-2 py-1 rounded"
+          >-{{ discountPercentage() }}%</span
+        >
+      </div>
+    }
+    <div class="absolute top-3 right-3 flex flex-col space-y-2">
+      <button
+        class="bg-white h-8 w-8 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm text-gray-600 hover:text-red-500 hover:scale-110 cursor-pointer"
+        title="Add to wishlist"
+        (click)="toggleWishlist()"
+      >
+        <i
+          [class.fa-solid]="isWishlist()"
+          [class.text-red-500]="isWishlist()"
+          [class.fa-regular]="!isWishlist()"
+          class="fa-heart"
+        ></i>
+      </button>
+
+      <button
+        (click)="changeImage()"
+        class="bg-white h-8 w-8 rounded-full flex items-center justify-center transition-all duration-300 text-gray-600 hover:text-emerald-600 hover:scale-110 shadow-sm cursor-pointer"
+      >
+        <i class="fa-solid fa-arrows-rotate"></i>
+      </button>
+
+      <a
+        class="bg-white h-8 w-8 rounded-full flex items-center justify-center transition-all duration-300 text-gray-600 hover:text-emerald-600 hover:scale-110 shadow-sm"
+        [routerLink]="'/products/' + product()?.id"
+      >
+        <i class="fa-regular fa-eye"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="p-4">
+    <div class="text-xs text-gray-500 mb-1">{{ product()?.category?.name }}</div>
+
+    <h3
+      class="font-medium mb-1 cursor-pointer hover:text-emerald-600 transition-colors duration-300"
+    >
+      <a class="line-clamp-2" [routerLink]="'/products/' + product()?.id">{{ product()?.title }}</a>
+    </h3>
+
+    <div class="flex items-center mb-2">
+      <div class="flex text-amber-400 mr-2">
+        <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+        <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+        <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+        <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+        <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+      </div>
+      <span class="text-xs text-gray-500"
+        >{{ product()?.ratingsAverage }} ({{ product()?.ratingsQuantity }})</span
+      >
+    </div>
+
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="text-lg font-bold text-gray-800">{{
+          product()?.price | currency: 'EGP' : 'symbol'
+        }}</span>
+      </div>
+
+      <button
+        (click)="addToCart()"
+        class="h-10 w-10 rounded-full flex items-center justify-center transition-all duration-300 bg-emerald-600 text-white hover:bg-emerald-700 hover:scale-110 active:scale-95 disabled:opacity-70 shadow-md hover:shadow-lg"
+      >
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+  </div>
+</div>

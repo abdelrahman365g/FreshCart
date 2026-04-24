@@ -1,0 +1,10 @@
+@if (!isLoading() && product()) {
+  <app-product-info [product]="product()!"></app-product-info>
+  <app-product-tabs [product]="product()!"></app-product-tabs>
+  <app-related-products [categoryId]="product()?.category?._id"></app-related-products>
+} @else {
+  <div class="text-center text-primary-500">
+    <i class="fas fa-spinner fa-spin"></i>
+    <p>Loading....</p>
+  </div>
+}

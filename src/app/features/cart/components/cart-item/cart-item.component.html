@@ -1,0 +1,37 @@
+<div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-5">
+  <div class="flex gap-4 sm:gap-6">
+    <a [routerLink]="['/products', item()?.product?._id]" class="relative shrink-0 group">
+      <div
+        class="w-28 h-28 sm:w-32 sm:h-32 rounded-xl bg-gray-50 p-3 border border-gray-100 overflow-hidden"
+      >
+        <img
+          [src]="item()?.product?.imageCover"
+          class="w-full h-full object-contain group-hover:scale-110 transition-transform"
+        />
+      </div>
+    </a>
+
+    <div class="flex-1 min-w-0 flex flex-col">
+      <h3 class="font-semibold text-gray-900">
+        {{ item()?.product?.title }}
+      </h3>
+
+      <span class="text-emerald-600 font-bold text-lg"> {{ item()?.product?.price }} EGP </span>
+
+      <div class="mt-auto flex justify-between items-center">
+        <div class="flex items-center bg-gray-50 rounded-xl p-1 border border-gray">
+          <button (click)="decreament()" class="h-8 w-8 cursor-pointer">-</button>
+          <span class="w-12 text-center">{{ item()?.count }}</span>
+          <button (click)="increament()" class="h-8 w-8 cursor-pointer">+</button>
+        </div>
+
+        <button
+          (click)="remove()"
+          class="rounded p-2 text-red-500 hover:bg-red-100 transition-colors duration-200 cursor-pointer"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

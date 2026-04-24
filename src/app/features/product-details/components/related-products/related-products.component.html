@@ -1,0 +1,44 @@
+@if (relatedProducts().length > 0) {
+  <section class="py-10">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center mb-6">
+        <div class="flex items-center gap-3">
+          <div class="h-8 w-1.5 bg-linear-to-b from-emerald-500 to-emerald-700 rounded-full"></div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            You May Also <span class="text-emerald-600">Like</span>
+          </h2>
+        </div>
+
+        <div class="flex space-x-2">
+          <button
+            type="button"
+            (click)="prev()"
+            class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-emerald-100"
+          >
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+
+          <button
+            type="button"
+            (click)="next()"
+            class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-emerald-100"
+          >
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="relative w-full">
+        <div class="relative overflow-hidden">
+          <div
+            class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+          >
+            @for (product of visibleProducts(); track product._id) {
+              <app-product-card [product]="product"></app-product-card>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+}

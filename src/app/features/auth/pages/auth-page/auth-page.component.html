@@ -1,0 +1,49 @@
+<div
+  class="container max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 p-4 min-h-screen items-start"
+>
+  <div class="lg:mt-20">
+    <h1 class="text-4xl font-bold">Welcome to <span class="text-emerald-600">FreshCart</span></h1>
+    <p class="text-xl mt-2 mb-4 text-gray-600">
+      Join thousands of happy customers who enjoy fresh groceries delivered right to their doorstep.
+    </p>
+
+    <ul class="space-y-6 my-8">
+      <li class="flex items-start gap-4">
+        <div
+          class="icon w-12 h-12 text-lg bg-emerald-100 text-emerald-600 rounded-full flex justify-center items-center shrink-0"
+        >
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <div class="content">
+          <h2 class="text-lg font-semibold text-gray-900">Premium Quality</h2>
+          <p class="text-gray-600">Premium quality products sourced from trusted suppliers.</p>
+        </div>
+      </li>
+      <li class="flex items-start gap-4">
+        <div
+          class="icon w-12 h-12 text-lg bg-emerald-100 text-emerald-600 rounded-full flex justify-center items-center shrink-0"
+        >
+          <i class="fa-solid fa-truck-fast"></i>
+        </div>
+        <div class="content">
+          <h2 class="text-lg font-semibold text-gray-900">Fast Delivery</h2>
+          <p class="text-gray-600">Same-day delivery available in most areas</p>
+        </div>
+      </li>
+      <li class="flex items-start gap-4">
+        <div
+          class="icon w-12 h-12 text-lg bg-emerald-100 text-emerald-600 rounded-full flex justify-center items-center shrink-0"
+        >
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div class="content">
+          <h2 class="text-lg font-semibold text-gray-900">Secure Shopping</h2>
+          <p class="text-gray-600">Your data and payments are completely secure</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="bg-white rounded-2xl shadow-xl px-6 py-10 border border-gray-100">
+    <router-outlet />
+  </div>
+</div>
