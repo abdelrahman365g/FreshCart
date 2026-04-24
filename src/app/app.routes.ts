@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { CategoriesRoutes } from './features/categories/categories.routes';
 import { AuthRoutes } from './features/auth/auth.routes';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,7 @@ export const routes: Routes = [
       },
       {
         path: 'auth',
+        canActivate: [authGuard],
         loadComponent: () =>
           import('./features/auth/pages/auth-page/auth-page.component').then(
             (m) => m.AuthPageComponent,
@@ -116,6 +118,21 @@ export const routes: Routes = [
       },
       {
         path: 'track-order',
+        redirectTo: 'coming-soon',
+        pathMatch: 'full',
+      },
+      {
+        path: 'orders',
+        redirectTo: 'coming-soon',
+        pathMatch: 'full',
+      },
+      {
+        path: 'profile',
+        redirectTo: 'coming-soon',
+        pathMatch: 'full',
+      },
+      {
+        path: 'forgot-password',
         redirectTo: 'coming-soon',
         pathMatch: 'full',
       },

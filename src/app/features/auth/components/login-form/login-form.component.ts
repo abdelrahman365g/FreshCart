@@ -2,8 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
-import { Router } from 'express';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login-form',
   imports: [RouterLink, ReactiveFormsModule],
@@ -47,11 +46,7 @@ export class LoginFormComponent {
 
     this.isLoading.set(true);
 
-    const formData = new FormData();
-    formData.append('email', this.email.value ?? '');
-    formData.append('password', this.password.value ?? '');
-
-    this.authService.login(formData).subscribe({
+    this.authService.login(this.loginForm.value).subscribe({
       next: () => {
         this.isLoading.set(false);
         this.router.navigate(['/']);

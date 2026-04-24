@@ -8,7 +8,12 @@ import { Product } from '../interfaces/product.interface';
 import { CartItem } from '../../features/cart/interfaces/cart-item.interface';
 
 interface CartResponse {
-  data: CartItem[];
+  data: {
+    _id: string;
+    cartOwner: string;
+    products: CartItem[];
+    totalCartPrice: number;
+  };
 }
 
 @Injectable({
@@ -46,7 +51,7 @@ export class CartService {
 
   private loadFromServer() {
     this.http.get<CartResponse>(appAPIs.getCart).subscribe({
-      next: (res) => this._cart.set(res.data),
+      next: (res) => this._cart.set(res.data.products),
     });
   }
 

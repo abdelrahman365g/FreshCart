@@ -3,8 +3,8 @@
   <app-product-tabs [product]="product()!"></app-product-tabs>
   <app-related-products [categoryId]="product()?.category?._id"></app-related-products>
 } @else {
-  <div class="text-center text-primary-500">
-    <i class="fas fa-spinner fa-spin"></i>
-    <p>Loading....</p>
+  <div class="min-h-screen pt-10 text-center text-primary-500">
+    <i class="fas fa-spinner fa-spin text-2xl"></i>
+    <p class="text-2xl">Loading....</p>
   </div>
 }

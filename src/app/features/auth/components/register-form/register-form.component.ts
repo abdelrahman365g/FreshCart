@@ -8,8 +8,7 @@ import {
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
-import { Router } from 'express';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register-form',
   imports: [RouterLink, ReactiveFormsModule],
@@ -99,16 +98,11 @@ export class RegisterFormComponent {
     }
 
     this.isLoading.set(true);
-    const formData = new FormData();
-    formData.append('name', this.name.value ?? '');
-    formData.append('email', this.email.value ?? '');
-    formData.append('password', this.password.value ?? '');
-    formData.append('phone', this.phone.value ?? '');
 
-    this.authService.register(formData).subscribe({
+    this.authService.register(this.registerForm.value).subscribe({
       next: () => {
         this.isLoading.set(false);
-        this.router.navigate(['/']);
+        this.router.navigate(['/auth/login']);
       },
       error: () => {
         this.isLoading.set(false);

@@ -32,27 +32,22 @@ export class AuthService {
     }
   }
 
-  login(data: FormData): Observable<any> {
+  login(data: any): Observable<any> {
     return this.signIn(data).pipe(
       tap((res: any) => {
-        this._user.set(res.data);
-        localStorage.setItem(
-          Stored_Keys.USER_DATA,
-          JSON.stringify(res.data)
-        );
-      })
+        this._user.set(res.user);
+        localStorage.setItem(Stored_Keys.USER_DATA, JSON.stringify(res.user));
+        localStorage.setItem(Stored_Keys.USER_TOKEN, res.token);
+      }),
     );
   }
 
-  register(data: FormData): Observable<any> {
+  register(data: any): Observable<any> {
     return this.signUp(data).pipe(
       tap((res: any) => {
-        this._user.set(res.data);
-        localStorage.setItem(
-          Stored_Keys.USER_DATA,
-          JSON.stringify(res.data)
-        );
-      })
+        this._user.set(res.user);
+        localStorage.setItem(Stored_Keys.USER_DATA, JSON.stringify(res.user));
+      }),
     );
   }
 
