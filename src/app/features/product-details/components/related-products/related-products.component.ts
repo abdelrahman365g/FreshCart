@@ -1,4 +1,5 @@
-import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, computed, inject, input, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ProductsService } from '../../../../core/services/products.service';
 import { Product } from '../../../../core/interfaces/product.interface';
 import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
@@ -11,6 +12,7 @@ import { ProductCardComponent } from '../../../../shared/components/product-card
 })
 export class RelatedProductsComponent implements OnInit {
   productService = inject(ProductsService);
+  private platformId = inject(PLATFORM_ID);
 
   relatedProducts = signal<Product[]>([]);
   categoryId = input<String>();
@@ -27,7 +29,9 @@ export class RelatedProductsComponent implements OnInit {
   ngOnInit(): void {
     this.getRelatedProducts();
     this.updateVisibleCount();
-    window.addEventListener('resize', this.updateVisibleCount.bind(this));
+    if (isPlatformBrowser(this.platformId)) {
+      window.addEventListener('resize', this.updateVisibleCount.bind(this));
+    }
   }
 
   getRelatedProducts(): void {
@@ -41,13 +45,15 @@ export class RelatedProductsComponent implements OnInit {
   }
 
   updateVisibleCount() {
-    const w = window.innerWidth;
+    if (isPlatformBrowser(this.platformId)) {
+      const w = window.innerWidth;
 
-    if (w >= 1280) this.visibleCount.set(5);
-    else if (w >= 1024) this.visibleCount.set(4);
-    else if (w >= 768) this.visibleCount.set(3);
-    else if (w >= 640) this.visibleCount.set(2);
-    else this.visibleCount.set(1);
+      if (w >= 1280) this.visibleCount.set(5);
+      else if (w >= 1024) this.visibleCount.set(4);
+      else if (w >= 768) this.visibleCount.set(3);
+      else if (w >= 640) this.visibleCount.set(2);
+      else this.visibleCount.set(1);
+    }
   }
 
   next() {

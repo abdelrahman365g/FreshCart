@@ -1,4 +1,5 @@
-import { effect, inject, Injectable, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { effect, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Stored_Keys } from '../constants/Stored_Keys';
@@ -22,6 +23,7 @@ interface CartResponse {
 export class CartService {
   private http = inject(HttpClient);
   private authService = inject(AuthService);
+  private platformId = inject(PLATFORM_ID);
 
   private readonly _cart = signal<CartItem[]>([]);
   cart = this._cart.asReadonly();
@@ -45,8 +47,12 @@ export class CartService {
   }
 
   private loadFromLocal() {
-    const data = localStorage.getItem(Stored_Keys.CART);
-    this._cart.set(data ? JSON.parse(data) : []);
+    if (isPlatformBrowser(this.platformId)) {
+      const data = localStorage.getItem(Stored_Keys.CART);
+      this._cart.set(data ? JSON.parse(data) : []);
+    } else {
+      this._cart.set([]);
+    }
   }
 
   private loadFromServer() {
@@ -90,7 +96,9 @@ export class CartService {
       );
     }
 
-    localStorage.setItem(Stored_Keys.CART, JSON.stringify(updated));
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(Stored_Keys.CART, JSON.stringify(updated));
+    }
     return of(true);
   }
 
@@ -120,7 +128,9 @@ export class CartService {
         )
         .subscribe();
     } else {
-      localStorage.removeItem(Stored_Keys.CART);
+      if (isPlatformBrowser(this.platformId)) {
+        localStorage.removeItem(Stored_Keys.CART);
+      }
     }
   }
 
@@ -155,7 +165,9 @@ export class CartService {
         );
     }
 
-    localStorage.setItem(Stored_Keys.CART, JSON.stringify(updated));
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(Stored_Keys.CART, JSON.stringify(updated));
+    }
     return of(true);
   }
 
@@ -176,11 +188,14 @@ export class CartService {
       );
     }
 
-    localStorage.setItem(Stored_Keys.CART, JSON.stringify(updated));
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(Stored_Keys.CART, JSON.stringify(updated));
+    }
     return of(true);
   }
 
   private syncLocalToServer() {
+    if (!isPlatformBrowser(this.platformId)) return;
     const local = localStorage.getItem(Stored_Keys.CART);
     if (!local) return;
 

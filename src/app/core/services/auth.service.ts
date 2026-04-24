@@ -1,5 +1,6 @@
 import { User } from './../interfaces/user.interface';
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { computed, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { Stored_Keys } from '../constants/Stored_Keys';
 import { HttpClient } from '@angular/common/http';
 import { appAPIs } from '../constants/appAPIs';
@@ -10,6 +11,7 @@ import { Observable, tap } from 'rxjs';
 })
 export class AuthService {
   private http = inject(HttpClient);
+  private platformId = inject(PLATFORM_ID);
 
   private readonly _user = signal<User | null>(null);
   user = this._user.asReadonly();
@@ -21,14 +23,16 @@ export class AuthService {
   }
 
   private restoreSession() {
-    const data = localStorage.getItem(Stored_Keys.USER_DATA);
+    if (isPlatformBrowser(this.platformId)) {
+      const data = localStorage.getItem(Stored_Keys.USER_DATA);
 
-    if (!data) return;
+      if (!data) return;
 
-    try {
-      this._user.set(JSON.parse(data));
-    } catch {
-      localStorage.removeItem(Stored_Keys.USER_DATA);
+      try {
+        this._user.set(JSON.parse(data));
+      } catch {
+        localStorage.removeItem(Stored_Keys.USER_DATA);
+      }
     }
   }
 
@@ -36,8 +40,10 @@ export class AuthService {
     return this.signIn(data).pipe(
       tap((res: any) => {
         this._user.set(res.user);
-        localStorage.setItem(Stored_Keys.USER_DATA, JSON.stringify(res.user));
-        localStorage.setItem(Stored_Keys.USER_TOKEN, res.token);
+        if (isPlatformBrowser(this.platformId)) {
+          localStorage.setItem(Stored_Keys.USER_DATA, JSON.stringify(res.user));
+          localStorage.setItem(Stored_Keys.USER_TOKEN, res.token);
+        }
       }),
     );
   }
@@ -46,13 +52,17 @@ export class AuthService {
     return this.signUp(data).pipe(
       tap((res: any) => {
         this._user.set(res.user);
-        localStorage.setItem(Stored_Keys.USER_DATA, JSON.stringify(res.user));
+        if (isPlatformBrowser(this.platformId)) {
+          localStorage.setItem(Stored_Keys.USER_DATA, JSON.stringify(res.user));
+        }
       }),
     );
   }
 
   logout() {
-    localStorage.removeItem(Stored_Keys.USER_DATA);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem(Stored_Keys.USER_DATA);
+    }
     this._user.set(null);
   }
 
