@@ -1,59 +1,60 @@
-# ECommerce
+# FreshCart E-Commerce
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.6.
+A modern, feature-rich Angular e-commerce application featuring product browsing, cart and wishlist management, user authentication, and Server-Side Rendering (SSR) for improved performance and SEO.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- **User Authentication**: Secure login and registration flows protected by route guards.
+- **Product Catalog**: Comprehensive shop page to browse products with a dedicated product details view.
+- **Categories & Brands**: Dedicated sections to filter and explore products by category or brand.
+- **Shopping Cart**: Full cart management (add, update, remove items).
+- **Wishlist**: Save favorite products for later viewing and quick cart addition.
+- **Static Content**: Essential informational pages including Privacy Policy, Terms of Service, and Cookie Policy.
 
-```bash
-ng serve
-```
+## Tech Stack
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Frontend**: Angular v21 (Standalone Components)
+- **State Management**: RxJS (v7.8.0)
+- **Styling**: TailwindCSS v4, Flowbite, FontAwesome (Icons), Fontsource (Exo typography)
+- **Tooling**: Angular CLI v21 (Vite-based `@angular/build`), Angular SSR (`@angular/ssr`), Vitest (Unit testing), Prettier
 
-## Code scaffolding
+## Architecture / Project Structure
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+The application follows a modular, feature-based architecture utilizing Angular Standalone Components:
 
-```bash
-ng generate component component-name
-```
+- `src/app/core/`: Contains singleton services (Auth, Cart, Products, Wishlist), HTTP interceptors, layouts, and route guards.
+- `src/app/features/`: Contains domain-specific modules, standalone components, and localized routes (e.g., Auth, Brands, Cart, Categories, Home, Shop).
+- `src/app/shared/`: Contains reusable UI components, pipes, and directives shared across multiple features.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Key Implementation Details
 
-```bash
-ng generate --help
-```
+- **Server-Side Rendering (SSR) Safety**: Fully configured with `@angular/ssr` and Express. Services and interceptors utilize Angular's `isPlatformBrowser` utility to safely handle browser-only APIs (like `localStorage`) preventing hydration mismatches and build errors during pre-rendering.
+- **Lazy Loading Strategy**: The router configuration (`app.routes.ts`) aggressively uses `loadComponent` and `loadChildren` to lazy-load almost every feature page and static route, ensuring a minimal initial bundle size.
+- **Custom HTTP Interceptors**: Implements a `handleHeadersInterceptor` to automatically retrieve the JWT from local storage and inject `Authorization: Bearer <token>` and `token` headers into outgoing requests, heavily integrated with SSR platform checks.
 
-## Building
+## Setup & Running
 
-To build the project run:
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-```bash
-ng build
-```
+2. **Run the development server:**
+   ```bash
+   npm run start
+   ```
+   Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+3. **Build for production:**
+   ```bash
+   npm run build
+   ```
 
-## Running unit tests
+4. **Test SSR locally:**
+   ```bash
+   npm run serve:ssr:e-commerce
+   ```
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Live Demo
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Experience the live application here: [https://abdelrahman365g-freshcart.vercel.app](https://abdelrahman365g-freshcart.vercel.app)
