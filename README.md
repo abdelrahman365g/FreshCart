@@ -57,4 +57,4 @@ The application follows a modular, feature-based architecture utilizing Angular 
 
 ## Live Demo
 
-Experience the live application here: [https://abdelrahman365g-freshcart.vercel.app](https://abdelrahman365g-freshcart.vercel.app)
+Experience the live application here: [https://abdelrahman365g-freshcart.vercel.app](https://abdelrahman365g-freshcart.netlify.app)
