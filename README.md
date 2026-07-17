@@ -26,7 +26,7 @@ The application follows a modular, feature-based architecture utilizing Angular 
 - `src/app/features/`: Contains domain-specific modules, standalone components, and localized routes (e.g., Auth, Brands, Cart, Categories, Home, Shop).
 - `src/app/shared/`: Contains reusable UI components, pipes, and directives shared across multiple features.
 
-## Key Implementation Details
+## Key Implementation Details/s
 
 - **Server-Side Rendering (SSR) Safety**: Fully configured with `@angular/ssr` and Express. Services and interceptors utilize Angular's `isPlatformBrowser` utility to safely handle browser-only APIs (like `localStorage`) preventing hydration mismatches and build errors during pre-rendering.
 - **Lazy Loading Strategy**: The router configuration (`app.routes.ts`) aggressively uses `loadComponent` and `loadChildren` to lazy-load almost every feature page and static route, ensuring a minimal initial bundle size.
